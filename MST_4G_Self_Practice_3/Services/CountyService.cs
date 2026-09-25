@@ -80,4 +80,19 @@ public class CountyService(AppDbContext context) : ICountyService
             throw;
         }
     }
+
+    public async Task<bool> DeleteCountyAsync(int countyId)
+    {
+        var countyRecord = await context.County.FindAsync(countyId);
+
+        if (countyRecord == null)
+        {
+            return false;
+        }
+
+        context.County.Remove(countyRecord);
+        await context.SaveChangesAsync();
+
+        return true;
+    }
 }
