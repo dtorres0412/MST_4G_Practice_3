@@ -34,7 +34,7 @@ public class CountyController(ICountyService countyService) : ControllerBase
     }
 
     [HttpPut("update")]
-    public async Task<ActionResult<ReadCountyDto>> UpdateCounty([FromBody] UpdateCountyDto updateCountyDto)
+    public async Task<ActionResult<ReadCountyDto>>UpdateCountyAsync([FromBody] UpdateCountyDto updateCountyDto)
     {
         try
         {
