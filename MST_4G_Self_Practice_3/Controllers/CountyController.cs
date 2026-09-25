@@ -49,4 +49,16 @@ public class CountyController(ICountyService countyService) : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpDelete("{countyId:Int}")]
+    public async Task<IActionResult>DeleteCountyAsync(int countyId)
+    {
+          var isDeleted = await countyService.DeleteCountyAsync(countyId);
+        if(!isDeleted)
+        {
+            return NotFound($"County Id {countyId} record is not found.");
+        }
+
+        return NoContent();
+    }
 }
