@@ -6,4 +6,5 @@ public interface ICountyService
 {
     Task<ReadCountyDto>CreateCountyAsync(CreateCountyDto createCountyDto);
     Task<ReadCountyDto>GetByCountyNoAsync(string CountyNo);
+    Task<ReadCountyDto>UpdateCountyAsync(UpdateCountyDto updateCountyDto);
 }

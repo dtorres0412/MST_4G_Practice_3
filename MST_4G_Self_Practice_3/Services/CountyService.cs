@@ -49,4 +49,35 @@ public class CountyService(AppDbContext context) : ICountyService
             CountyName = newCounty.CountyName
         };
     }
+
+    public async Task<ReadCountyDto>UpdateCountyAsync(UpdateCountyDto updateCountyDto)
+    {
+        try
+        {
+            var existingCounty = await context.County
+                .FirstOrDefaultAsync(c => c.CountyId == updateCountyDto.CountyId);
+
+            if (existingCounty == null)
+            {
+                return null;
+            }
+
+            existingCounty.CountyNo = updateCountyDto.CountyNo.Trim();
+            existingCounty.CountyName = updateCountyDto.CountyName.Trim();
+
+            await context.SaveChangesAsync();
+
+            return new ReadCountyDto
+            {
+                CountyId = existingCounty.CountyId,
+                CountyNo = existingCounty.CountyNo,
+                CountyName = existingCounty.CountyName
+            };
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error in UpdateCountyAsync: " + ex.Message);
+            throw;
+        }
+    }
 }
