@@ -31,5 +31,22 @@ public class CountyController(ICountyService countyService) : ControllerBase
         {
             return BadRequest(ex.Message);
         }
-    }  
+    }
+
+    [HttpPut("update")]
+    public async Task<ActionResult<ReadCountyDto>> UpdateCounty([FromBody] UpdateCountyDto updateCountyDto)
+    {
+        try
+        {
+            var result = await countyService.UpdateCountyAsync(updateCountyDto);
+
+            if(result == null)
+                return NotFound($"County record number '{updateCountyDto.CountyNo}' is not found.");
+            return Ok(result);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }
